@@ -16,7 +16,7 @@ View Student
             <th scope="row">{{student.id}}</th>
             <td colspan="2" class="table-active">{{student.name}}</td>
             <td>{{student.email}}</td>
-            <td><a href="">UPDATE</a> </td>
+            <td><a href="{%url 'updatestudent' student.id %}">UPDATE</a> </td>
             <td><a href="{%url 'deletestudent' student.id %}">DELETE</a> </td>
         </tr>
         {%endfor%}

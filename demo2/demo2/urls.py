@@ -20,12 +20,13 @@ from affairs.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name=''),
+    path('home/', home, name='home'),
     path('contact_us/', contactus, name='contact_us'),
     path('about_us/', aboutUS, name='about_us'),
-    path('login/', login, name='login'),
+    path('', login, name=''),
     path('register/', addUser, name='register'),
     path('addStudent/', addStudent, name='addStudent'),
     path('viewStudent/', viewStudent, name='viewStudent'),
     path('deletestudent/<id>', deletestudent, name='deletestudent'),
+    path('updatestudent/<id>',updatestudent,name='updatestudent'),
 ]

@@ -56,3 +56,16 @@ def deletestudent(request,id):
     data = Students.objects.all()
     context['Students'] = data
     return render(request, 'affairs/viewStudent.html', context)
+
+def updatestudent(request,id):
+    if (request.method == 'GET'):
+        context = {}
+        Students.objects.filter(id=id)
+        data = Students.objects.get(id=id)
+        context['Student'] = data
+        return render(request, 'affairs/updateStudent.html',context)
+    else:
+        name = request.POST['name']
+        email = request.POST['email']
+        Students.objects.filter(id=id).update(name=name,email=email)
+        return redirect('viewStudent')
