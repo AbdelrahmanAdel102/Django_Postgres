@@ -1,24 +1,26 @@
 from django.shortcuts import render, redirect
 from .models import *
-
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login as authlogin,logout as authlogout
 
 def home(request):
     return render(request, 'affairs/home.html')
 
-
 def contactus(request):
     return render(request, 'affairs/contact.html')
 
-
 def aboutUS(request):
     return render(request, 'affairs/about.html')
-
 
 def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        if Myuser.objects.filter(username=email, password=password).exists():
+        my_user = Myuser.objects.filter(username=email, password=password).exists()
+        admin_usr = authenticate(username=email, password=password)
+        if my_user and admin_usr is not None:
+            request.session['username']=request.POST['email']
+            authlogin(request,admin_usr)
             return redirect('addStudent')
         else:
             return render(request, "affairs/login.html")
@@ -31,9 +33,10 @@ def addUser(request):
     else:
         email = request.POST['email']
         password = request.POST['password']
+        ##Must Check if exists First in db before insert ==> not complated yet
         Myuser.objects.create(username=email, password=password)
-        return render(request, 'affairs/login.html')
-
+        User.objects.create_user(username=request.POST['email'],password=request.POST['password'],is_staff=True)
+        return redirect('')
 
 def addStudent(request):
     if (request.method == 'GET'):
@@ -69,3 +72,7 @@ def updatestudent(request,id):
         email = request.POST['email']
         Students.objects.filter(id=id).update(name=name,email=email)
         return redirect('viewStudent')
+
+def user_logout(request):
+    request.session.clear()
+    return redirect("")
