@@ -29,5 +29,8 @@ urlpatterns = [
     path('viewStudent/', viewStudent, name='viewStudent'),
     path('deletestudent/<id>', deletestudent, name='deletestudent'),
     path('updatestudent/<id>',updatestudent,name='updatestudent'),
-    path('logout/',user_logout,name='logout')
+    path('logout/',user_logout,name='logout'),
+    # New Day 3
+    path('addStudentForm/',addStudentForm,name='addStudentForm'),
+    path('addStudentModel/',addStudentModel,name='addStudentModel'),
 ]
