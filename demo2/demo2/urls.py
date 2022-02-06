@@ -15,9 +15,8 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from affairs.views import *
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', home, name='home'),
@@ -30,7 +29,18 @@ urlpatterns = [
     path('deletestudent/<id>', deletestudent, name='deletestudent'),
     path('updatestudent/<id>',updatestudent,name='updatestudent'),
     path('logout/',user_logout,name='logout'),
-    # New Day 3
+
+    # New Day 3  ######## All Are Running At addStudentModel
     path('addStudentForm/',addStudentForm,name='addStudentForm'),
     path('addStudentModel/',addStudentModel,name='addStudentModel'),
+
+    #Edit
+    path('addintake/',addIntakeModel,name='addIntake'),
+    path('addtrack/',addTrackModel,name='addtrack'),
+
+    # New API
+    path('myapi/',include('myapi.urls')),
 ]
+
+
+

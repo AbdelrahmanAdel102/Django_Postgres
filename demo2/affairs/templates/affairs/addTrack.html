@@ -1,0 +1,15 @@
+{%extends 'index.html'%}
+{%block Title%}
+Add Track
+{%endblock%}
+{%block content%}
+
+<div class="container mt-4">
+    <h1>ADD Track</h1>
+    <form method="post">
+        {%csrf_token%}
+        {{MODEL.as_p}}
+        <input type="submit" value="Add Intake">
+    </form>
+</div>
+{%endblock%}

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login as authlogin,logout as authlogout
-from .forms import AddStudentsForm,AddStudentModel
+from .forms import *
 from django.views import View
 
 
@@ -94,6 +94,8 @@ def addStudentForm(request):
         return redirect('viewStudent')
 
 
+
+### Edit ###
 def addStudentModel(request):
     context = {}
     form = AddStudentModel
@@ -101,7 +103,32 @@ def addStudentModel(request):
         context['MODEL'] = form
         return render(request, 'affairs/addStudentModel.html',context)
     else:
-        form=AddStudentModel(request.POST)
+        # form=AddStudentModel(request.POST)
+        # form.save()
+        ### Problem With Save From Column Name in Database exx: As it is intakeid_id but when save it send intakeid only ###
+        Students.objects.create(name=request.POST['name'], email=request.POST['email'],intakeid_id=request.POST['intakeid'] ,trackid_id=request.POST['trackid'])
+        return redirect('viewStudent')
+
+
+def addIntakeModel(request):
+    context ={}
+    form = AddIntakeModel
+    if (request.method=='GET'):
+        context['MODEL'] = form
+        return render(request,'affairs/addIntake.html',context)
+    else:
+        form=AddIntakeModel(request.POST)
+        print(request.POST)
         form.save()
         return redirect('viewStudent')
 
+def addTrackModel(request):
+    context ={}
+    form = AddTrackModel
+    if (request.method=='GET'):
+        context['MODEL'] = form
+        return render(request,'affairs/addTrack.html',context)
+    else:
+        form=AddTrackModel(request.POST)
+        form.save()
+        return redirect('viewStudent')
